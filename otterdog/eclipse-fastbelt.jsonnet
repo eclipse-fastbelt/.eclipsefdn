@@ -61,4 +61,9 @@ orgs.newOrg('ecd.fastbelt', 'eclipse-fastbelt') {
       ],
     },
   ],
+} + {
+  # snippet added due to 'https://github.com/eclipsefdn/otterdog-configs/blob/main/blueprints/add-dot-github-repo.yml'
+  _repositories+:: [
+    orgs.newRepo('.github')
+  ],
 }
