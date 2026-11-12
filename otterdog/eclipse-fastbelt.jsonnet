@@ -49,6 +49,7 @@ orgs.newOrg('ecd.fastbelt', 'eclipse-fastbelt') {
           },
         },
         orgs.newRepoRuleset('release-tags') {
+          allows_creations: true,
           allows_force_pushes: true,
           allows_updates: false,
           include_refs+: [
