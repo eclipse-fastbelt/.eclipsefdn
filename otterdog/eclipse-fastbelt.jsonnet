@@ -61,6 +61,44 @@ orgs.newOrg('ecd.fastbelt', 'eclipse-fastbelt') {
         },
       ],
     },
+    orgs.newRepo('fastbelt-website') {
+      allow_update_branch: false,
+      delete_branch_on_merge: false,
+      dependabot_alerts_enabled: false,
+      description: "Source of the Eclipse Fastbelt website",
+      gh_pages_build_type: "workflow",
+      has_projects: false,
+      has_wiki: false,
+      homepage: "https://fastbelt.eclipse.dev/",
+      topics+: [
+        "documentation",
+        "language-engineering",
+        "language-server-protocol",
+        "website"
+      ],
+      web_commit_signoff_required: false,
+      secrets: [
+        orgs.newRepoSecret('DEPLOY_PREVIEW_TOKEN') {
+          value: "pass:bots/ecd.fastbelt/github.com/preview-token",
+        },
+      ],
+      branch_protection_rules: [
+        orgs.newBranchProtectionRule('main') {
+          required_approving_review_count: 1,
+          requires_status_checks: false,
+          requires_strict_status_checks: true,
+        },
+      ],
+      environments: [
+        orgs.newEnvironment('github-pages') {
+          branch_policies+: [
+            "main"
+          ],
+          deployment_branch_policy: "selected",
+        },
+        orgs.newEnvironment('pull-request-preview'),
+      ],
+    },
   ],
 } + {
   # snippet added due to 'https://github.com/eclipsefdn/otterdog-configs/blob/main/blueprints/add-dot-github-repo.yml'
